@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Bitcount';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/flowsprite-site/fonts/bitcount.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Bitcount';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/flowsprite-site/fonts/bitcount-bold.woff') format('woff');
+}
+
 @theme {
   --color-primary: #4F46E5;
   --color-primary-light: #6366F1;
