@@ -1,3 +1,5 @@
+import { useState, useCallback } from 'react'
+import Splash from './components/Splash'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import TrustBar from './components/TrustBar'
@@ -13,21 +15,27 @@ import FinalCTA from './components/FinalCTA'
 import Footer from './components/Footer'
 
 export default function App() {
+  const [splashDone, setSplashDone] = useState(false)
+  const handleSplashComplete = useCallback(() => setSplashDone(true), [])
+
   return (
     <div className="min-h-screen bg-surface">
-      <Navbar />
-      <Hero />
-      <TrustBar />
-      <Problem />
-      <TheShift />
-      <HowItWorks />
-      <Safety />
-      <Comparison />
-      <Features />
-      <Lifecycle />
-      <Pricing />
-      <FinalCTA />
-      <Footer />
+      <Splash onComplete={handleSplashComplete} />
+      <div style={{ opacity: splashDone ? 1 : 0, transition: 'opacity 0.6s ease' }}>
+        <Navbar />
+        <Hero />
+        <TrustBar />
+        <Problem />
+        <TheShift />
+        <HowItWorks />
+        <Safety />
+        <Comparison />
+        <Features />
+        <Lifecycle />
+        <Pricing />
+        <FinalCTA />
+        <Footer />
+      </div>
     </div>
   )
 }
