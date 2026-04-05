@@ -19,14 +19,14 @@ function Wordmark() {
   const getDisplayText = () => {
     if (scrollProgress >= 1) return 'Fs'
     if (scrollProgress <= 0) return 'FlowSprite'
-    // Gradually remove middle chars
     const mid = middleChars.slice(0, Math.round(middleChars.length * (1 - scrollProgress)))
     return 'F' + mid + (mid.length > 0 ? 'e' : 's')
   }
 
   const text = getDisplayText()
-  const duplicateCount = 3
   const color = '#1E293B'
+  const dupeCount = 5
+  const fontStyle = { fontFamily: "'Bitcount', monospace", fontSize: '30px', letterSpacing: '1px', color }
 
   return (
     <div
@@ -34,11 +34,9 @@ function Wordmark() {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Main wordmark line */}
-      <div className="flex leading-none whitespace-nowrap" style={{ fontFamily: "'Bitcount', monospace", fontSize: '24px', letterSpacing: '1px', color }}>
-        <motion.span initial={{ opacity: 1 }} animate={{ opacity: 1 }}>
-          {text.length > 2 ? text.slice(0, 4) : text}
-        </motion.span>
+      {/* Main wordmark */}
+      <div className="flex leading-none whitespace-nowrap" style={fontStyle}>
+        <span>{text.length > 4 ? text.slice(0, 4) : text}</span>
         {text.length > 4 && (
           <motion.span
             initial={{ opacity: 0, x: -4 }}
@@ -50,43 +48,21 @@ function Wordmark() {
         )}
       </div>
 
-      {/* Hover: duplicate down, no color — same dark color, decreasing opacity */}
+      {/* Hover: tightly packed duplicates fading down */}
       <AnimatePresence>
         {hovered && (
           <div className="absolute left-0 top-full z-50 pointer-events-none">
-            {/* "Flow" copies */}
-            {Array.from({ length: duplicateCount }).map((_, i) => (
+            {Array.from({ length: dupeCount }).map((_, i) => (
               <motion.div
-                key={`flow-${i}`}
-                initial={{ opacity: 0, y: -6 }}
-                animate={{ opacity: 0.55 - i * 0.15, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.12, delay: i * 0.04 }}
-                className="leading-none whitespace-nowrap"
-                style={{ fontFamily: "'Bitcount', monospace", fontSize: '24px', letterSpacing: '1px', color }}
+                key={i}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: Math.max(0.06, 0.5 - i * 0.1) }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.1, delay: i * 0.03 }}
+                className="leading-[1] whitespace-nowrap"
+                style={fontStyle}
               >
-                {text.length >= 4 ? text.slice(0, 4) : text}
-              </motion.div>
-            ))}
-
-            {/* "Sprite" copies — slight delay after Flow */}
-            {text.length > 4 && Array.from({ length: duplicateCount }).map((_, i) => (
-              <motion.div
-                key={`sprite-${i}`}
-                initial={{ opacity: 0, y: -6 }}
-                animate={{ opacity: 0.55 - i * 0.15, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.12, delay: 0.15 + i * 0.04 }}
-                className="leading-none whitespace-nowrap"
-                style={{
-                  fontFamily: "'Bitcount', monospace",
-                  fontSize: '24px',
-                  letterSpacing: '1px',
-                  color,
-                  paddingLeft: `${4 * 14.4}px`,
-                }}
-              >
-                {text.slice(4)}
+                {text}
               </motion.div>
             ))}
           </div>
@@ -123,13 +99,7 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary via-violet to-primary-light flex items-center justify-center shrink-0">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 12l2 2 4-4"/>
-              <path d="M12 3a9 9 0 100 18 9 9 0 000-18z"/>
-            </svg>
-          </div>
+        <a href="#" className="flex items-center">
           <Wordmark />
         </a>
 
