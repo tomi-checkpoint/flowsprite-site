@@ -13,40 +13,22 @@ const features = [
 
 export default function Features() {
   const { ref, isInView } = useScrollAnimation()
-
   return (
-    <section id="features" ref={ref} className="py-28 bg-dark-lighter relative">
+    <section id="features" ref={ref} className="py-28 bg-white relative">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          transition={smoothTransition}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">
-            Everything a full Salesforce DevOps team does.
-          </h2>
-          <p className="text-xl text-gray-400">For the price of lunch.</p>
+        <motion.div variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'} transition={smoothTransition} className="text-center mb-16">
+          <h2 className="text-4xl sm:text-5xl font-black text-text mb-4">Everything a full Salesforce DevOps team does.</h2>
+          <p className="text-xl text-text-muted">For the price of lunch.</p>
         </motion.div>
-
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
+        <motion.div variants={staggerContainer} initial="hidden" animate={isInView ? 'visible' : 'hidden'} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, i) => (
-            <motion.div
-              key={i}
-              variants={staggerItem}
-              className="p-6 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-primary/20 hover:bg-white/[0.05] transition-all group"
-            >
-              <div className="w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center mb-4 transition-colors">
+            <motion.div key={i} variants={staggerItem}
+              className="p-6 rounded-2xl bg-surface border border-border-light hover:shadow-md hover:border-primary/20 transition-all group">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/15 flex items-center justify-center mb-4 transition-colors">
                 <feature.icon size={20} className="text-primary" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
+              <h3 className="text-lg font-bold text-text mb-2">{feature.title}</h3>
+              <p className="text-text-muted text-sm leading-relaxed">{feature.description}</p>
             </motion.div>
           ))}
         </motion.div>

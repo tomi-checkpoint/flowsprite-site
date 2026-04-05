@@ -1,86 +1,35 @@
 export default function Footer() {
   const columns = [
-    {
-      title: 'Product',
-      links: [
-        { label: 'Features', href: '#features' },
-        { label: 'How It Works', href: '#how-it-works' },
-        { label: 'Safety', href: '#safety' },
-        { label: 'Pricing', href: '#pricing' },
-      ],
-    },
-    {
-      title: 'Resources',
-      links: [
-        { label: 'Documentation', href: '#' },
-        { label: 'API Reference', href: '#' },
-        { label: 'Status Page', href: '#' },
-        { label: 'Changelog', href: '#' },
-      ],
-    },
-    {
-      title: 'Company',
-      links: [
-        { label: 'About', href: '#' },
-        { label: 'Blog', href: '#' },
-        { label: 'Careers', href: '#' },
-        { label: 'Contact', href: '#' },
-      ],
-    },
-    {
-      title: 'Legal',
-      links: [
-        { label: 'Privacy Policy', href: '#' },
-        { label: 'Terms of Service', href: '#' },
-        { label: 'Security', href: '#' },
-        { label: 'DPA', href: '#' },
-      ],
-    },
+    { title: 'Product', links: [{ label: 'Features', href: '#features' }, { label: 'How It Works', href: '#how-it-works' }, { label: 'Safety', href: '#safety' }, { label: 'Pricing', href: '#pricing' }] },
+    { title: 'Resources', links: [{ label: 'Documentation', href: '#' }, { label: 'API Reference', href: '#' }, { label: 'Status Page', href: '#' }, { label: 'Changelog', href: '#' }] },
+    { title: 'Company', links: [{ label: 'About', href: '#' }, { label: 'Blog', href: '#' }, { label: 'Careers', href: '#' }, { label: 'Contact', href: '#' }] },
+    { title: 'Legal', links: [{ label: 'Privacy Policy', href: '#' }, { label: 'Terms of Service', href: '#' }, { label: 'Security', href: '#' }, { label: 'DPA', href: '#' }] },
   ]
-
   return (
-    <footer className="bg-dark-lighter border-t border-white/5 py-16">
+    <footer className="bg-surface border-t border-border-light py-16">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
-          {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <a href="#" className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary via-violet to-amber flex items-center justify-center">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 12l2 2 4-4"/>
-                  <path d="M12 3a9 9 0 100 18 9 9 0 000-18z"/>
-                </svg>
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary via-violet to-primary-light flex items-center justify-center">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 3a9 9 0 100 18 9 9 0 000-18z"/></svg>
               </div>
-              <span className="text-lg font-bold text-white">Flow<span className="text-violet-light">Sprite</span></span>
+              <span className="text-lg font-bold text-text">Flow<span className="text-violet">Sprite</span></span>
             </a>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              Git-powered Salesforce DevOps. Your org, your repo, zero risk.
-            </p>
+            <p className="text-sm text-text-light leading-relaxed">Git-powered Salesforce DevOps. Your org, your repo, zero risk.</p>
           </div>
-
           {columns.map((col, i) => (
             <div key={i}>
-              <h4 className="text-sm font-semibold text-white mb-3">{col.title}</h4>
+              <h4 className="text-sm font-semibold text-text mb-3">{col.title}</h4>
               <ul className="space-y-2">
-                {col.links.map((link, j) => (
-                  <li key={j}>
-                    <a href={link.href} className="text-sm text-gray-500 hover:text-gray-300 transition-colors">
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                {col.links.map((link, j) => (<li key={j}><a href={link.href} className="text-sm text-text-light hover:text-text transition-colors">{link.label}</a></li>))}
               </ul>
             </div>
           ))}
         </div>
-
-        <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-600">
-            © {new Date().getFullYear()} FlowSprite. All rights reserved.
-          </p>
-          <p className="text-xs text-gray-600">
-            Built with care for Salesforce teams who deserve better tooling.
-          </p>
+        <div className="border-t border-border-light pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-text-light">© {new Date().getFullYear()} FlowSprite. All rights reserved.</p>
+          <p className="text-xs text-text-light">Built with care for Salesforce teams who deserve better tooling.</p>
         </div>
       </div>
     </footer>
