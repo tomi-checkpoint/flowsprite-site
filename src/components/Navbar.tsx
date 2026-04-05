@@ -24,9 +24,12 @@ function Wordmark() {
   }
 
   const text = getDisplayText()
+  const flowPart = text.length > 4 ? text.slice(0, 4) : text
+  const spritePart = text.length > 4 ? text.slice(4) : ''
   const color = '#1E293B'
   const dupeCount = 5
-  const fontStyle = { fontFamily: "'Bitcount', monospace", fontSize: '30px', letterSpacing: '1px', color }
+  const fontSize = '30px'
+  const fontBase = { fontFamily: "'Bitcount', monospace", fontSize, letterSpacing: '1px', color }
 
   return (
     <div
@@ -34,37 +37,59 @@ function Wordmark() {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Main wordmark */}
-      <div className="flex leading-none whitespace-nowrap" style={fontStyle}>
-        <span>{text.length > 4 ? text.slice(0, 4) : text}</span>
-        {text.length > 4 && (
+      {/* Main wordmark: Flow + sprite on same line */}
+      <div className="flex leading-none whitespace-nowrap" style={fontBase}>
+        <span>{flowPart}</span>
+        {spritePart && (
           <motion.span
             initial={{ opacity: 0, x: -4 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3, delay: 0.08 }}
           >
-            {text.slice(4)}
+            {spritePart}
           </motion.span>
         )}
       </div>
 
-      {/* Hover: tightly packed duplicates fading down */}
+      {/* Hover: "Flow" duplicates straight down, "sprite" duplicates with vertical offset */}
       <AnimatePresence>
         {hovered && (
-          <div className="absolute left-0 top-full z-50 pointer-events-none">
-            {Array.from({ length: dupeCount }).map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: Math.max(0.06, 0.5 - i * 0.1) }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.1, delay: i * 0.03 }}
-                className="leading-[1] whitespace-nowrap"
-                style={fontStyle}
-              >
-                {text}
-              </motion.div>
-            ))}
+          <div className="absolute left-0 top-full z-50 pointer-events-none" style={{ display: 'flex', gap: '0px' }}>
+            {/* Flow column — duplicates straight down */}
+            <div>
+              {Array.from({ length: dupeCount }).map((_, i) => (
+                <motion.div
+                  key={`f-${i}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: Math.max(0.06, 0.5 - i * 0.1) }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.1, delay: i * 0.03 }}
+                  className="leading-[1] whitespace-nowrap"
+                  style={fontBase}
+                >
+                  {flowPart}
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Sprite column — offset down by ~1 line height, duplicates after slight delay */}
+            {spritePart && (
+              <div style={{ marginTop: '30px' }}>
+                {Array.from({ length: dupeCount }).map((_, i) => (
+                  <motion.div
+                    key={`s-${i}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: Math.max(0.06, 0.5 - i * 0.1) }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.1, delay: 0.1 + i * 0.03 }}
+                    className="leading-[1] whitespace-nowrap"
+                    style={fontBase}
+                  >
+                    {spritePart}
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </AnimatePresence>
