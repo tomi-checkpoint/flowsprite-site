@@ -2,26 +2,24 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 
 const logos = [
-  // Each logo flies in from a different edge/direction
   { src: '/flowsprite-site/logos/Salesforce.com_logo.svg.png', alt: 'Salesforce', 
-    finalX: 28, finalY: 30, size: 200, delay: 0,
-    fromX: -300, fromY: -200, fromRotate: -35 },  // from top-left
+    finalX: 35, finalY: 35, size: 240, delay: 0,
+    fromX: -450, fromY: -300, fromRotate: -45 },
   { src: '/flowsprite-site/logos/GitHub_Invertocat_Black.png', alt: 'GitHub',
-    finalX: 70, finalY: 25, size: 180, delay: 0.15,
-    fromX: 300, fromY: -250, fromRotate: 25 },     // from top-right
+    finalX: 62, finalY: 32, size: 215, delay: 0.12,
+    fromX: 400, fromY: -350, fromRotate: 30 },
   { src: '/flowsprite-site/logos/Claude_AI_symbol.png', alt: 'Claude',
-    finalX: 22, finalY: 65, size: 170, delay: 0.3,
-    fromX: -350, fromY: 200, fromRotate: 30 },     // from bottom-left
+    finalX: 32, finalY: 60, size: 200, delay: 0.25,
+    fromX: -500, fromY: 300, fromRotate: 40 },
   { src: '/flowsprite-site/logos/ChatGPT-Logo.png', alt: 'ChatGPT',
-    finalX: 72, finalY: 62, size: 190, delay: 0.45,
-    fromX: 350, fromY: 250, fromRotate: -20 },     // from bottom-right
+    finalX: 65, finalY: 58, size: 230, delay: 0.38,
+    fromX: 450, fromY: 350, fromRotate: -35 },
 ]
 
 export default function Splash({ onComplete }: { onComplete: () => void }) {
   const [phase, setPhase] = useState<'logos' | 'swipe' | 'done'>('logos')
 
   useEffect(() => {
-    // Logos float for 2.2s, then swipe up over 0.7s
     const t1 = setTimeout(() => setPhase('swipe'), 2200)
     const t2 = setTimeout(() => {
       setPhase('done')
@@ -43,7 +41,6 @@ export default function Splash({ onComplete }: { onComplete: () => void }) {
           exit={{ y: '-100vh' }}
           transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
         >
-          {/* Floating logos — fly in from different angles */}
           {logos.map((logo, i) => (
             <motion.img
               key={i}
@@ -63,7 +60,7 @@ export default function Splash({ onComplete }: { onComplete: () => void }) {
                 x: logo.fromX,
                 y: logo.fromY,
                 rotate: logo.fromRotate,
-                scale: 0.4,
+                scale: 0.3,
               }}
               animate={{
                 opacity: 1,
@@ -73,16 +70,16 @@ export default function Splash({ onComplete }: { onComplete: () => void }) {
                 scale: 1,
               }}
               transition={{
-                opacity: { duration: 0.5, delay: logo.delay },
-                x: { duration: 0.8, delay: logo.delay, type: 'spring', stiffness: 60, damping: 12 },
+                opacity: { duration: 0.35, delay: logo.delay },
+                x: { duration: 0.55, delay: logo.delay, type: 'spring', stiffness: 80, damping: 14 },
                 y: {
                   duration: 4 + i * 0.5,
-                  delay: logo.delay + 0.8,
+                  delay: logo.delay + 0.55,
                   repeat: Infinity,
                   ease: 'easeInOut',
                 },
-                rotate: { duration: 0.8, delay: logo.delay, type: 'spring', stiffness: 60, damping: 12 },
-                scale: { duration: 0.8, delay: logo.delay, type: 'spring', stiffness: 60, damping: 12 },
+                rotate: { duration: 0.55, delay: logo.delay, type: 'spring', stiffness: 80, damping: 14 },
+                scale: { duration: 0.55, delay: logo.delay, type: 'spring', stiffness: 80, damping: 14 },
               }}
             />
           ))}
