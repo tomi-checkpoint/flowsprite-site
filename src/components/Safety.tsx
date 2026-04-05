@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowDownUp, GitPullRequest, FileText, ShieldCheck, Database } from 'lucide-react'
+import { ArrowDownUp, GitPullRequest, FileText, ShieldCheck, Database, UserCheck } from 'lucide-react'
 import { useScrollAnimation } from '../hooks/useAnimations'
 
 const features = [
@@ -11,7 +11,7 @@ const features = [
   {
     icon: GitPullRequest,
     title: 'Every Change Is a Pull Request',
-    description: 'No more "who changed what and when." Every field, every flow, every permission change is a Git commit with a timestamp, an author, and a full diff. Rollback to any point in history.',
+    description: 'No more "who changed what and when." Every field, flow, and permission change is a Git commit with a timestamp, author, and full diff. Rollback to any point in history.',
   },
   {
     icon: FileText,
@@ -21,12 +21,17 @@ const features = [
   {
     icon: ShieldCheck,
     title: '7 Built-In Policy Guardrails',
-    description: 'Production deletions blocked. Security metadata flagged. Apex without tests rejected. Flow activations require validation first. These aren\'t suggestions — they\'re gates.',
+    description: 'Production deletions blocked. Security metadata flagged. Apex without tests rejected. Flow activations require validation first. These are gates, not suggestions.',
   },
   {
     icon: Database,
     title: 'You Own Everything',
-    description: 'Your metadata lives in YOUR private GitHub repository. Cancel FlowSprite tomorrow — your entire org history, every commit, every rollback point stays with you. Forever.',
+    description: 'Your metadata lives in YOUR private GitHub repo. Cancel FlowSprite tomorrow — your entire org history, every commit, every rollback point stays with you. Forever.',
+  },
+  {
+    icon: UserCheck,
+    title: 'Role-Based Access Control',
+    description: '5-level permission hierarchy from viewer to owner. Sandbox isolation per team. SOC 2 aligned audit logging for every action across every environment.',
   },
 ]
 
@@ -34,7 +39,7 @@ export default function Safety() {
   const { ref, isInView } = useScrollAnimation()
 
   return (
-    <section id="safety" ref={ref} className="py-24 bg-gradient-to-b from-dark to-dark-lighter relative overflow-hidden">
+    <section id="safety" ref={ref} className="py-28 bg-gradient-to-b from-dark to-dark-lighter relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.06),transparent_50%)]" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
@@ -52,24 +57,20 @@ export default function Safety() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 + i * 0.1 }}
-              className={`p-6 rounded-2xl bg-white/[0.03] border border-amber/10 hover:border-amber/25 transition-all ${i === 4 ? 'md:col-span-2 md:max-w-lg md:mx-auto' : ''}`}
+              transition={{ duration: 0.6, delay: 0.1 + i * 0.08 }}
+              className="p-6 rounded-2xl bg-white/[0.03] border border-amber/10 hover:border-amber/25 hover:bg-white/[0.05] transition-all group"
             >
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-amber/10 flex items-center justify-center shrink-0 mt-1">
-                  <feature.icon size={20} className="text-amber" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
-                  <p className="text-gray-400 leading-relaxed text-sm">{feature.description}</p>
-                </div>
+              <div className="w-12 h-12 rounded-xl bg-amber/10 group-hover:bg-amber/15 flex items-center justify-center mb-4 transition-colors">
+                <feature.icon size={22} className="text-amber" />
               </div>
+              <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
+              <p className="text-gray-400 leading-relaxed text-sm">{feature.description}</p>
             </motion.div>
           ))}
         </div>

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { X, Check } from 'lucide-react'
-import { useScrollAnimation } from '../hooks/useAnimations'
+import { useScrollAnimation, fadeUp, smoothTransition } from '../hooks/useAnimations'
 
 const rows = [
   { label: 'Team size', without: '5-person dev team', with: '1 admin, full control' },
@@ -16,12 +16,13 @@ export default function Comparison() {
   const { ref, isInView } = useScrollAnimation()
 
   return (
-    <section ref={ref} className="py-24 bg-dark relative">
+    <section ref={ref} className="py-28 bg-dark relative">
       <div className="max-w-5xl mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+          variants={fadeUp}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          transition={smoothTransition}
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">
@@ -30,9 +31,9 @@ export default function Comparison() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          initial={{ opacity: 0, y: 40, scale: 0.98 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ ...smoothTransition, delay: 0.2 }}
           className="rounded-2xl overflow-hidden border border-white/10"
         >
           {/* Header */}
@@ -48,7 +49,13 @@ export default function Comparison() {
 
           {/* Rows */}
           {rows.map((row, i) => (
-            <div key={i} className="grid grid-cols-3 border-b border-white/5 last:border-0">
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -10 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ ...smoothTransition, delay: 0.3 + i * 0.06 }}
+              className="grid grid-cols-3 border-b border-white/5 last:border-0"
+            >
               <div className="p-4 flex items-center">
                 <span className="text-gray-400 text-sm font-medium">{row.label}</span>
               </div>
@@ -64,7 +71,7 @@ export default function Comparison() {
                   <span className="text-white text-sm font-medium">{row.with}</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>

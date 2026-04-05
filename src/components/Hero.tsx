@@ -1,45 +1,27 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Play } from 'lucide-react'
-
-const floatingIcons = [
-  { emoji: '📦', x: '10%', y: '20%', delay: 0 },
-  { emoji: '🔀', x: '85%', y: '15%', delay: 1 },
-  { emoji: '🛡️', x: '5%', y: '70%', delay: 2 },
-  { emoji: '⚡', x: '90%', y: '65%', delay: 0.5 },
-  { emoji: '🔐', x: '15%', y: '45%', delay: 1.5 },
-  { emoji: '📋', x: '80%', y: '40%', delay: 2.5 },
-]
+import MeshGradient from './MeshGradient'
+import ProductDemo from './ProductDemo'
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark-lighter to-dark" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(124,58,237,0.15),transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(59,130,246,0.1),transparent_50%)]" />
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16">
+      {/* Dark base */}
+      <div className="absolute inset-0 bg-dark" />
 
-      {/* Floating icons */}
-      {floatingIcons.map((icon, i) => (
-        <motion.div
-          key={i}
-          className="absolute text-2xl opacity-20 pointer-events-none select-none"
-          style={{ left: icon.x, top: icon.y }}
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 5, -5, 0],
-          }}
-          transition={{
-            duration: 6,
-            delay: icon.delay,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        >
-          {icon.emoji}
-        </motion.div>
-      ))}
+      {/* Animated mesh gradient background */}
+      <MeshGradient />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      {/* Subtle grid overlay for depth */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+        }}
+      />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -78,7 +60,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6"
         >
           <a
             href="#pricing"
@@ -100,47 +82,13 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-sm text-gray-500"
+          className="text-sm text-gray-500 mb-16"
         >
           2-minute setup · No Connected App · No SFDX · No developers required
         </motion.p>
 
-        {/* Hero visual — deploy preview mockup */}
-        <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="mt-16 max-w-3xl mx-auto"
-        >
-          <div className="rounded-xl border border-white/10 bg-dark-lighter/80 backdrop-blur-sm overflow-hidden glow-violet">
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/5 bg-white/[0.02]">
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-red-500/60" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
-                <div className="w-3 h-3 rounded-full bg-green-500/60" />
-              </div>
-              <span className="text-xs text-gray-500 ml-2 font-mono">Deploy Preview — PR #47 → TrustYou Sandbox</span>
-            </div>
-            <div className="p-6 font-mono text-sm leading-relaxed text-left">
-              <div className="text-gray-500 mb-3">3 changes · 0 warnings · All policy checks passed ✓</div>
-              <div className="flex items-start gap-2 mb-2">
-                <span className="text-success font-bold">+</span>
-                <span className="text-success">Adds required field <span className="text-white font-semibold">'Renewal_Date__c'</span> on Opportunity</span>
-              </div>
-              <div className="flex items-start gap-2 mb-2">
-                <span className="text-amber font-bold">~</span>
-                <span className="text-amber">Updates validation rule <span className="text-white font-semibold">'Closed_Lost_Reason_Required'</span> formula</span>
-              </div>
-              <div className="flex items-start gap-2 mb-2">
-                <span className="text-primary font-bold">→</span>
-                <span className="text-primary">Activates Flow <span className="text-white font-semibold">'Lead_Routing'</span> version 12</span>
-              </div>
-              <div className="mt-4 pt-3 border-t border-white/5 text-gray-500">
-                Dependencies checked · No downstream breaks detected · <span className="text-success">Ready to deploy</span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+        {/* Two-panel product demo */}
+        <ProductDemo />
       </div>
     </section>
   )

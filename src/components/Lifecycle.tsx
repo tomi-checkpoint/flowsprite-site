@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Hand } from 'lucide-react'
-import { useScrollAnimation } from '../hooks/useAnimations'
+import { useScrollAnimation, fadeUp, staggerContainer, staggerItem, smoothTransition } from '../hooks/useAnimations'
 
 const stages = [
   { label: 'Dev Sandbox', mode: 'auto', color: 'bg-primary' },
@@ -14,12 +14,13 @@ export default function Lifecycle() {
   const { ref, isInView } = useScrollAnimation()
 
   return (
-    <section ref={ref} className="py-24 bg-dark relative overflow-hidden">
+    <section ref={ref} className="py-28 bg-dark relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+          variants={fadeUp}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          transition={smoothTransition}
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">
@@ -27,15 +28,14 @@ export default function Lifecycle() {
           </h2>
         </motion.div>
 
-        {/* Pipeline visual */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          variants={staggerContainer}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
           className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8"
         >
           {stages.map((stage, i) => (
-            <div key={i} className="flex items-center gap-2 sm:gap-3">
+            <motion.div key={i} variants={staggerItem} className="flex items-center gap-2 sm:gap-3">
               <div className={`px-4 sm:px-6 py-3 rounded-xl border ${
                 stage.mode === 'manual'
                   ? 'border-amber/40 bg-amber/10'
@@ -54,17 +54,16 @@ export default function Lifecycle() {
                   {stage.label}
                 </div>
               </div>
-              {i < stages.length - 1 && (
-                <ArrowRight size={16} className="text-gray-600 shrink-0" />
-              )}
-            </div>
+              {i < stages.length - 1 && <ArrowRight size={16} className="text-gray-600 shrink-0" />}
+            </motion.div>
           ))}
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.4 }}
+          variants={fadeUp}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          transition={{ ...smoothTransition, delay: 0.4 }}
           className="max-w-2xl mx-auto text-center"
         >
           <div className="inline-block px-6 py-4 rounded-xl bg-amber/5 border border-amber/20 mb-8">
