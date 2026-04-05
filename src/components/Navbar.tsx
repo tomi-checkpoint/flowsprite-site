@@ -29,6 +29,7 @@ function Wordmark() {
   const color = '#1E293B'
   const dupeCount = 5
   const fontSize = '30px'
+  const lineH = 30 // px, matches font size with leading-[1]
   const fontBase = { fontFamily: "'Bitcount', monospace", fontSize, letterSpacing: '1px', color }
 
   return (
@@ -37,7 +38,7 @@ function Wordmark() {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Main wordmark: Flow + sprite on same line */}
+      {/* Main wordmark */}
       <div className="flex leading-none whitespace-nowrap" style={fontBase}>
         <span>{flowPart}</span>
         {spritePart && (
@@ -51,11 +52,11 @@ function Wordmark() {
         )}
       </div>
 
-      {/* Hover: "Flow" duplicates straight down, "sprite" duplicates with vertical offset */}
+      {/* Hover: Flow column + Sprite column offset half a line down */}
       <AnimatePresence>
         {hovered && (
-          <div className="absolute left-0 top-full z-50 pointer-events-none" style={{ display: 'flex', gap: '0px' }}>
-            {/* Flow column — duplicates straight down */}
+          <div className="absolute left-0 top-full z-50 pointer-events-none flex">
+            {/* Flow column */}
             <div>
               {Array.from({ length: dupeCount }).map((_, i) => (
                 <motion.div
@@ -72,16 +73,16 @@ function Wordmark() {
               ))}
             </div>
 
-            {/* Sprite column — offset down by ~1 line height, duplicates after slight delay */}
+            {/* Sprite column — offset down by half a line height, enters after Flow */}
             {spritePart && (
-              <div style={{ marginTop: '30px' }}>
+              <div style={{ marginTop: `${lineH / 2}px` }}>
                 {Array.from({ length: dupeCount }).map((_, i) => (
                   <motion.div
                     key={`s-${i}`}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: Math.max(0.06, 0.5 - i * 0.1) }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.1, delay: 0.1 + i * 0.03 }}
+                    transition={{ duration: 0.1, delay: 0.08 + i * 0.03 }}
                     className="leading-[1] whitespace-nowrap"
                     style={fontBase}
                   >
