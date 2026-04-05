@@ -1,14 +1,11 @@
-import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
-import { useScrollAnimation, fadeUp, smoothTransition } from '../hooks/useAnimations'
+import { motion, useInView } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { fadeUp, smoothTransition } from '../hooks/useAnimations'
 
-function TypeDeleteHeadline({ isInView }: { isInView: boolean }) {
-  // "What if your admin could do it all?"
-  // Delete "r admin" character by character from right to left
-  // → "What if your admin" → "What if your admi" → ... → "What if you"
-  // Full: "What if your admin could "
-  // Target: "What if you could "
-  // Characters to delete: "r admin" (7 chars, deleted right to left)
+function TypeDeleteHeadline() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.5 })
+
   const prefix = 'What if you'
   const deletable = 'r admin'
   const suffix = ' could '
@@ -17,26 +14,27 @@ function TypeDeleteHeadline({ isInView }: { isInView: boolean }) {
   const [started, setStarted] = useState(false)
   const [cursorVisible, setCursorVisible] = useState(true)
 
-  // Start the delete animation once in view
   useEffect(() => {
     if (!isInView || started) return
     setStarted(true)
 
-    // Wait 1.5s, then start deleting
+    let count = deletable.length
+    let intervalId: ReturnType<typeof setInterval>
+
     const startDelay = setTimeout(() => {
-      let count = deletable.length
-      const interval = setInterval(() => {
+      intervalId = setInterval(() => {
         count--
         setCharsVisible(count)
-        if (count <= 0) clearInterval(interval)
-      }, 120) // 120ms per character deletion
-      return () => clearInterval(interval)
+        if (count <= 0) clearInterval(intervalId)
+      }, 120)
     }, 1500)
 
-    return () => clearTimeout(startDelay)
+    return () => {
+      clearTimeout(startDelay)
+      if (intervalId) clearInterval(intervalId)
+    }
   }, [isInView, started])
 
-  // Blink cursor
   useEffect(() => {
     if (!started) return
     const blink = setInterval(() => setCursorVisible(v => !v), 530)
@@ -46,7 +44,7 @@ function TypeDeleteHeadline({ isInView }: { isInView: boolean }) {
   const currentDeletable = deletable.slice(0, charsVisible)
 
   return (
-    <span>
+    <span ref={ref}>
       {prefix}
       {currentDeletable}
       <span
@@ -64,13 +62,15 @@ function TypeDeleteHeadline({ isInView }: { isInView: boolean }) {
 }
 
 export default function TheShift() {
-  const { ref, isInView } = useScrollAnimation()
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.3 })
+
   return (
     <section ref={ref} className="py-28 bg-white relative overflow-hidden">
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
         <motion.h2 variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'} transition={{ ...smoothTransition }}
           className="text-4xl sm:text-5xl md:text-6xl font-black text-text tracking-tight mb-8">
-          <TypeDeleteHeadline isInView={isInView} />
+          <TypeDeleteHeadline />
         </motion.h2>
         <motion.p variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'} transition={{ ...smoothTransition, delay: 0.15 }}
           className="text-xl text-text-muted max-w-3xl mx-auto leading-relaxed">
