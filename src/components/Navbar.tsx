@@ -1,16 +1,13 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 
-// Ditto-style wordmark: duplicate-down on hover, accordion-to-F on scroll
 function Wordmark() {
   const [hovered, setHovered] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
-  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handler = () => {
-      // 0 at top, 1 at ~400px scroll
       const p = Math.min(1, window.scrollY / 400)
       setScrollProgress(p)
     }
@@ -18,82 +15,78 @@ function Wordmark() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  // On scroll, letters collapse: FlowSprite -> Flowsprit -> ... -> Fl -> F
-  const fullText = 'FlowSprite'
-  const visibleChars = Math.max(1, Math.round(fullText.length * (1 - scrollProgress)))
-  const displayText = fullText.slice(0, visibleChars)
+  const middleChars = 'lowSprit'
+  const getDisplayText = () => {
+    if (scrollProgress >= 1) return 'Fs'
+    if (scrollProgress <= 0) return 'FlowSprite'
+    // Gradually remove middle chars
+    const mid = middleChars.slice(0, Math.round(middleChars.length * (1 - scrollProgress)))
+    return 'F' + mid + (mid.length > 0 ? 'e' : 's')
+  }
 
+  const text = getDisplayText()
   const duplicateCount = 3
-  const baseColor = '#1E293B'
-  const dupeColors = [
-    ['#4F46E5', '#EC4899', '#7C3AED'], // row colors for "Flow"
-    ['#F59E0B', '#10B981', '#3B82F6'], // row colors for "Sprite"
-  ]
+  const color = '#1E293B'
 
   return (
     <div
-      ref={containerRef}
       className="relative cursor-pointer select-none"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Main wordmark */}
-      <div
-        className="font-bold leading-none whitespace-nowrap"
-        style={{
-          fontFamily: "'Bitcount', monospace",
-          fontSize: '24px',
-          letterSpacing: '1px',
-          color: baseColor,
-        }}
-      >
-        {displayText}
+      {/* Main wordmark line */}
+      <div className="flex leading-none whitespace-nowrap" style={{ fontFamily: "'Bitcount', monospace", fontSize: '24px', letterSpacing: '1px', color }}>
+        <motion.span initial={{ opacity: 1 }} animate={{ opacity: 1 }}>
+          {text.length > 2 ? text.slice(0, 4) : text}
+        </motion.span>
+        {text.length > 4 && (
+          <motion.span
+            initial={{ opacity: 0, x: -4 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: 0.08 }}
+          >
+            {text.slice(4)}
+          </motion.span>
+        )}
       </div>
 
-      {/* Hover duplication: stacked copies below */}
+      {/* Hover: duplicate down, no color — same dark color, decreasing opacity */}
       <AnimatePresence>
         {hovered && (
-          <div className="absolute left-0 top-full z-50" style={{ pointerEvents: 'none' }}>
-            {/* "Flow" duplicates */}
+          <div className="absolute left-0 top-full z-50 pointer-events-none">
+            {/* "Flow" copies */}
             {Array.from({ length: duplicateCount }).map((_, i) => (
               <motion.div
                 key={`flow-${i}`}
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 0.7 - i * 0.15, y: 0 }}
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 0.55 - i * 0.15, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.15, delay: i * 0.05 }}
+                transition={{ duration: 0.12, delay: i * 0.04 }}
                 className="leading-none whitespace-nowrap"
-                style={{
-                  fontFamily: "'Bitcount', monospace",
-                  fontSize: '24px',
-                  letterSpacing: '1px',
-                  color: dupeColors[0][i],
-                  mixBlendMode: 'multiply',
-                }}
+                style={{ fontFamily: "'Bitcount', monospace", fontSize: '24px', letterSpacing: '1px', color }}
               >
-                {displayText.length >= 4 ? displayText.slice(0, 4) : displayText}
+                {text.length >= 4 ? text.slice(0, 4) : text}
               </motion.div>
             ))}
 
-            {/* "Sprite" duplicates (delayed) */}
-            {displayText.length > 4 && Array.from({ length: duplicateCount }).map((_, i) => (
+            {/* "Sprite" copies — slight delay after Flow */}
+            {text.length > 4 && Array.from({ length: duplicateCount }).map((_, i) => (
               <motion.div
                 key={`sprite-${i}`}
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 0.7 - i * 0.15, y: 0 }}
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 0.55 - i * 0.15, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.15, delay: 0.2 + i * 0.05 }}
+                transition={{ duration: 0.12, delay: 0.15 + i * 0.04 }}
                 className="leading-none whitespace-nowrap"
                 style={{
                   fontFamily: "'Bitcount', monospace",
                   fontSize: '24px',
                   letterSpacing: '1px',
-                  color: dupeColors[1][i],
-                  mixBlendMode: 'multiply',
-                  paddingLeft: `${4 * 14.4}px`, // offset to align under "Sprite" portion
+                  color,
+                  paddingLeft: `${4 * 14.4}px`,
                 }}
               >
-                {displayText.slice(4)}
+                {text.slice(4)}
               </motion.div>
             ))}
           </div>
