@@ -44,7 +44,7 @@ export default function Safety() {
       id="safety"
       ref={sectionRef}
       className="relative"
-      style={{ height: `${100 + cards.length * 50}vh` }}
+      style={{ height: `${100 + cards.length * 80}vh` }}
     >
       {/* Sticky container */}
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
