@@ -3,10 +3,10 @@ import { Check, ArrowRight } from 'lucide-react'
 import { useScrollAnimation } from '../hooks/useAnimations'
 
 const plans = [
-  { name: 'Free', price: '$0', period: '/mo', description: 'Perfect to explore', features: ['1 sandbox', '1 user', 'Metadata sync', 'Deploy previews', 'Your own GitHub repo'], cta: 'Start Free', popular: false },
-  { name: 'Starter', price: '$49', period: '/mo', description: 'For solo admins shipping changes', features: ['3 sandboxes', '3 users', '50 deploys/mo', 'Git branching & PRs', 'Deploy previews', 'Audit trail'], cta: 'Start Free', popular: false },
-  { name: 'Pro', price: '$199', period: '/mo', description: 'For teams managing multiple orgs', features: ['5 sandboxes', '10 users', '500 deploys/mo', 'Cross-org compare', 'Promotion workflows', 'Policy engine', 'Webhooks', 'Drift detection'], cta: 'Start Free', popular: true },
-  { name: 'Enterprise', price: 'Custom', period: '', description: 'For large orgs with compliance needs', features: ['Unlimited sandboxes', 'Unlimited users', 'Unlimited deploys', 'Approval workflows', 'Audit export', 'SSO / SAML', 'Dedicated support', 'Custom policies'], cta: 'Contact Us', popular: false },
+  { name: 'Free', price: '$0', period: '/mo', description: 'Perfect to explore.', features: ['1 sandbox', '1 user', 'Full change previews', 'Your own private repository'], cta: 'Start Free', popular: false },
+  { name: 'Starter', price: '$49', period: '/mo', description: 'For teams shipping changes weekly.', features: ['3 sandboxes', '3 users', '50 changes/mo', 'Change history and audit trail'], cta: 'Start Free', popular: false },
+  { name: 'Pro', price: '$199', period: '/mo', description: 'For teams managing multiple orgs.', features: ['5 sandboxes', '10 users', '500 changes/mo', 'Cross-org compare', 'Drift detection', 'Policy guardrails'], cta: 'Start Free', popular: true },
+  { name: 'Enterprise', price: 'Custom', period: '', description: 'For organizations with compliance needs.', features: ['Unlimited everything', 'SSO / SAML', 'Approval workflows', 'Dedicated support', 'Custom policies'], cta: 'Contact Us', popular: false },
 ]
 
 export default function Pricing() {
@@ -15,11 +15,11 @@ export default function Pricing() {
     <section id="pricing" ref={ref} className="py-28 bg-white relative">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }} className="text-center mb-4">
-          <h2 className="text-4xl sm:text-5xl font-black text-text mb-4">Transparent pricing. <span className="text-text-light">No sales calls required.</span></h2>
+          <h2 className="text-4xl sm:text-5xl font-black text-text mb-4">Start free. <span className="text-text-light">Scale when you're ready.</span></h2>
         </motion.div>
         <motion.p initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.1 }}
           className="text-center text-text-muted mb-16 text-lg">
-          All plans include your own GitHub repo, full audit trail, deploy previews, and the guarantee that we <strong className="text-text">never touch your production org.</strong>
+          Every plan: plain English previews, full change history, sandbox-only deploys.
         </motion.p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {plans.map((plan, i) => (

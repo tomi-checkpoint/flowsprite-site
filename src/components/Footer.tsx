@@ -16,7 +16,7 @@ export default function Footer() {
               </div>
               <span className="text-lg font-bold text-text">Flow<span className="text-violet">Sprite</span></span>
             </a>
-            <p className="text-sm text-text-light leading-relaxed">Git-powered Salesforce DevOps. Your org, your repo, zero risk.</p>
+            <p className="text-sm text-text-light leading-relaxed">Salesforce changes in plain English.</p>
           </div>
           {columns.map((col, i) => (
             <div key={i}>

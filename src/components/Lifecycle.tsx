@@ -16,7 +16,7 @@ export default function Lifecycle() {
     <section ref={ref} className="py-28 bg-surface-warm relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'} transition={smoothTransition} className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-black text-text mb-4">Full lifecycle. <span className="gradient-text">One person.</span></h2>
+          <h2 className="text-4xl sm:text-5xl font-black text-text mb-4">From idea to production. <span className="gradient-text">One person.</span></h2>
         </motion.div>
         <motion.div variants={staggerContainer} initial="hidden" animate={isInView ? 'visible' : 'hidden'} className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8">
           {stages.map((stage, i) => (
@@ -36,8 +36,8 @@ export default function Lifecycle() {
             <p className="text-amber-dark font-semibold text-sm">☝️ You push this button. Always you. Never us.</p>
           </div>
           <p className="text-text-muted leading-relaxed">
-            FlowSprite manages the entire promotion path from development to staging. When changes reach production, we generate a validated change order with test results, dependency analysis, and rollback instructions.
-            But the final deploy is yours. <strong className="text-text">This is a safety boundary we will never cross.</strong>
+            FlowSprite manages the path from your description to a tested, validated change ready for production.
+            The last step is always yours. <strong className="text-text">That's a line we will never cross.</strong>
           </p>
         </motion.div>
       </div>

@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion'
-import { Plug, GitBranch, Rocket } from 'lucide-react'
+import { MessageCircle, CheckCircle, Rocket } from 'lucide-react'
 import { useScrollAnimation, staggerContainer, staggerItem, fadeUp, smoothTransition } from '../hooks/useAnimations'
 
 const steps = [
-  { icon: Plug, number: '01', title: 'Connect', description: 'Enter your Salesforce username and security token. That\'s it. No Connected App setup, no certificates, no SFDX installation.', accent: 'Two minutes.', color: 'text-primary', bg: 'bg-primary/10', border: 'border-primary/15', hoverBorder: 'hover:border-primary/30' },
-  { icon: GitBranch, number: '02', title: 'Sync', description: 'FlowSprite pulls your entire org — 37 metadata types — into a private GitHub repo you own. Objects, fields, flows, Apex, permissions, layouts. All version-controlled.', accent: 'All yours.', color: 'text-violet', bg: 'bg-violet/10', border: 'border-violet/15', hoverBorder: 'hover:border-violet/30' },
-  { icon: Rocket, number: '03', title: 'Ship', description: 'Make changes. See exactly what will deploy in plain English. Approve the PR. It lands in your sandbox. When you\'re ready for production, FlowSprite packages a change order — but YOU push the button in Salesforce.', accent: 'Always.', color: 'text-amber-dark', bg: 'bg-amber/10', border: 'border-amber/15', hoverBorder: 'hover:border-amber/30' },
+  { icon: MessageCircle, number: '01', title: 'Ask', description: 'You or your team describes what needs to change. A new field. A routing rule. A validation. Plain language, no jargon.', accent: 'Your words.', color: 'text-primary', bg: 'bg-primary/10', border: 'border-primary/15', hoverBorder: 'hover:border-primary/30' },
+  { icon: CheckCircle, number: '02', title: 'Approve', description: 'FlowSprite shows you exactly what will change and what it affects. Review it. Revise it. Approve when it looks right.', accent: 'Your call.', color: 'text-violet', bg: 'bg-violet/10', border: 'border-violet/15', hoverBorder: 'hover:border-violet/30' },
+  { icon: Rocket, number: '03', title: 'Deploy', description: 'Approved changes land safely in your sandbox. Test them in a real environment. Push to production on your terms, on your timeline.', accent: 'Your pace.', color: 'text-amber-dark', bg: 'bg-amber/10', border: 'border-amber/15', hoverBorder: 'hover:border-amber/30' },
 ]
 
 export default function HowItWorks() {
@@ -15,7 +15,7 @@ export default function HowItWorks() {
       <div className="max-w-6xl mx-auto px-6">
         <motion.div variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'} transition={smoothTransition} className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-black text-text mb-4">
-            From <span className="text-text-light">"I need a dev"</span> to <span className="gradient-text">"I just shipped it."</span>
+            How it works
           </h2>
         </motion.div>
         <motion.div variants={staggerContainer} initial="hidden" animate={isInView ? 'visible' : 'hidden'} className="grid grid-cols-1 md:grid-cols-3 gap-8">

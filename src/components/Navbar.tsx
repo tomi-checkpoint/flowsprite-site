@@ -109,9 +109,9 @@ export default function Navbar() {
   }, [])
 
   const links = [
-    { label: 'Features', href: '#features' },
     { label: 'How It Works', href: '#how-it-works' },
     { label: 'Safety', href: '#safety' },
+    { label: 'Features', href: '#features' },
     { label: 'Pricing', href: '#pricing' },
   ]
 

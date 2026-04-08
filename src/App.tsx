@@ -2,12 +2,12 @@ import { useState, useCallback } from 'react'
 import Splash from './components/Splash'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import TrustBar from './components/TrustBar'
 import Problem from './components/Problem'
 import TheShift from './components/TheShift'
+import ProductDemo from './components/ProductDemo'
 import HowItWorks from './components/HowItWorks'
 import Safety from './components/Safety'
-import Comparison from './components/Comparison'
+import Testimonials from './components/Testimonials'
 import Features from './components/Features'
 import Lifecycle from './components/Lifecycle'
 import Pricing from './components/Pricing'
@@ -24,12 +24,12 @@ export default function App() {
       <div style={{ opacity: splashDone ? 1 : 0, transition: 'opacity 0.6s ease' }}>
         <Navbar />
         <Hero />
-        <TrustBar />
         <Problem />
         <TheShift />
+        <ProductDemo />
         <HowItWorks />
         <Safety />
-        <Comparison />
+        <Testimonials />
         <Features />
         <Lifecycle />
         <Pricing />

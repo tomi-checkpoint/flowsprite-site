@@ -52,7 +52,8 @@ export default function ProductDemo() {
   }, [isInView])
 
   return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 60 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1, delay: 0.2 }} className="w-full max-w-5xl mx-auto">
+    <section className="py-20 bg-white relative">
+    <motion.div ref={ref} initial={{ opacity: 0, y: 60 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1, delay: 0.2 }} className="w-full max-w-5xl mx-auto px-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-2xl border border-border bg-white shadow-xl shadow-primary/5 overflow-hidden">
 
         {/* LEFT: AI Chat */}
@@ -152,9 +153,10 @@ export default function ProductDemo() {
         </div>
       </div>
 
-      <motion.p initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} transition={{ delay: 1.5 }} className="text-xs text-text-light mt-4 text-center">
-        Ask AI to build → Review the PR → Deploy to sandbox. That's the whole workflow.
+      <motion.p initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} transition={{ delay: 1.5 }} className="text-sm text-text-muted mt-6 text-center">
+        You describe the business outcome. FlowSprite figures out the implementation.
       </motion.p>
     </motion.div>
+    </section>
   )
 }

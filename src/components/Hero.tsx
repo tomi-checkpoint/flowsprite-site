@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Play } from 'lucide-react'
-import ProductDemo from './ProductDemo'
 
 // Floating brand logos (Claude, Salesforce, GitHub) - realfood.gov scattered style
 function FloatingLogos() {
@@ -69,7 +68,7 @@ export default function Hero() {
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-sm text-primary mb-8"
         >
           <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-          Now in public beta — free to start
+          Used by teams managing 4+ Salesforce orgs
         </motion.div>
 
         <motion.h1
@@ -78,10 +77,11 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="text-5xl sm:text-6xl md:text-7xl font-black leading-[1.1] tracking-tight text-text mb-6"
         >
-          Your Salesforce.{' '}
+          Talk to your CRM.{' '}
           <br className="hidden sm:block" />
-          Your repo.{' '}
-          <span className="highlight-box">Zero risk.</span>
+          Change your CRM.{' '}
+          <br className="hidden sm:block" />
+          <span className="highlight-box">Own your CRM.</span>
         </motion.h1>
 
         <motion.p
@@ -90,10 +90,8 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-lg sm:text-xl text-text-muted max-w-3xl mx-auto mb-10 leading-relaxed"
         >
-          FlowSprite pulls your entire org metadata into a private GitHub repository
-          <strong className="text-text"> you own</strong>. Every change goes through a pull request.
-          Nothing touches your sandbox until you approve it.
-          Nothing touches production. <strong className="text-text">Ever.</strong>
+          Your team suggests or makes Salesforce changes using simple, natural language.
+          AI builds it. You review it. Nothing touches production unless you say so.
         </motion.p>
 
         <motion.div
@@ -116,12 +114,10 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-sm text-text-light mb-16"
+          className="text-sm text-text-light"
         >
-          2-minute setup · No Connected App · No SFDX · No developers required
+          2-minute setup · No developers · No Salesforce certifications
         </motion.p>
-
-        <ProductDemo />
       </div>
     </section>
   )
