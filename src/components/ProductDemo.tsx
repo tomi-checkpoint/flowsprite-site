@@ -159,15 +159,6 @@ export default function ProductDemo() {
                   transition={{ duration: 0.4 }}
                   className="text-[11px] whitespace-nowrap px-1.5"
                 >
-                  {i <= activeStage && (
-                    <motion.span
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="inline-block mr-1"
-                    >
-                      ✓
-                    </motion.span>
-                  )}
                   {stage}
                 </motion.div>
                 {i < stages.length - 1 && (

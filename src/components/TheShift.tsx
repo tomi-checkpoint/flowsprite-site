@@ -32,15 +32,15 @@ export default function TheShift() {
           </h2>
         </motion.div>
 
-        <div className="space-y-4 mb-10">
+        <div className="space-y-8 mb-12">
           {examples.map((example, i) => (
             <motion.p
               key={i}
               variants={fadeUp}
               initial="hidden"
               animate={visible ? 'visible' : 'hidden'}
-              transition={{ ...smoothTransition, delay: 0.15 + i * 0.1 }}
-              className="text-xl sm:text-2xl text-primary/80 font-medium italic"
+              transition={{ ...smoothTransition, delay: 0.15 + i * 0.12 }}
+              className="text-xl sm:text-2xl text-text font-medium italic"
             >
               {example}
             </motion.p>

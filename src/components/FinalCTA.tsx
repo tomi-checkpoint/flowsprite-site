@@ -4,12 +4,10 @@ import { useState, useEffect, useRef } from 'react'
 
 function BackspaceHeadline() {
   const ref = useRef<HTMLHeadingElement>(null)
-  const deletable = 'waiting for someone else to change it.'
-  const replacement = 'treating it that way.'
-  const [phase, setPhase] = useState<'idle' | 'deleting' | 'typing' | 'done'>('idle')
+  const deletable = 'r admin'
   const [charsVisible, setCharsVisible] = useState(deletable.length)
-  const [typedChars, setTypedChars] = useState(0)
   const [cursorOn, setCursorOn] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const triggered = useRef(false)
 
   useEffect(() => {
@@ -21,7 +19,7 @@ function BackspaceHeadline() {
           triggered.current = true
           setTimeout(() => {
             setCursorOn(true)
-            setPhase('deleting')
+            setDeleting(true)
           }, 800)
         }
       },
@@ -31,38 +29,20 @@ function BackspaceHeadline() {
     return () => observer.disconnect()
   }, [])
 
-  // Delete characters
   useEffect(() => {
-    if (phase !== 'deleting') return
+    if (!deleting) return
     let count = deletable.length
     const interval = setInterval(() => {
       count--
       setCharsVisible(count)
       if (count <= 0) {
         clearInterval(interval)
-        setTimeout(() => setPhase('typing'), 300)
-      }
-    }, 60)
-    return () => clearInterval(interval)
-  }, [phase])
-
-  // Type replacement
-  useEffect(() => {
-    if (phase !== 'typing') return
-    let count = 0
-    const interval = setInterval(() => {
-      count++
-      setTypedChars(count)
-      if (count >= replacement.length) {
-        clearInterval(interval)
-        setPhase('done')
         setTimeout(() => setCursorOn(false), 1500)
       }
-    }, 80)
+    }, 120)
     return () => clearInterval(interval)
-  }, [phase])
+  }, [deleting])
 
-  // Blink cursor
   const [cursorVisible, setCursorVisible] = useState(true)
   useEffect(() => {
     if (!cursorOn) return
@@ -70,16 +50,9 @@ function BackspaceHeadline() {
     return () => clearInterval(blink)
   }, [cursorOn])
 
-  const displayText = phase === 'idle' || phase === 'deleting'
-    ? deletable.slice(0, charsVisible)
-    : replacement.slice(0, typedChars)
-
   return (
     <h2 ref={ref} className="text-4xl sm:text-5xl md:text-6xl font-black text-text mb-6">
-      It's your CRM. Start{' '}
-      <span className={phase === 'done' || phase === 'typing' ? 'gradient-text' : ''}>
-        {displayText}
-      </span>
+      What if you{deletable.slice(0, charsVisible)}
       {cursorOn && (
         <span
           className="inline-block w-[3px] bg-primary rounded-sm"
@@ -92,6 +65,8 @@ function BackspaceHeadline() {
           }}
         />
       )}
+      {' could '}
+      <span className="gradient-text">do it all?</span>
     </h2>
   )
 }
@@ -102,8 +77,8 @@ export default function FinalCTA() {
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <BackspaceHeadline />
         <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.15 }}
-          className="text-2xl text-text-muted mb-10">
-          Talk to it. Change it. Own it.
+          className="text-xl text-text-muted max-w-2xl mx-auto mb-10 leading-relaxed">
+          Give them FlowSprite and watch a 5-person Salesforce team become <strong className="text-text">one person who ships faster, safer, and with complete confidence.</strong>
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.3 }} className="flex flex-col items-center gap-4">
           <a href="#pricing" className="group px-10 py-4 btn-gradient text-white font-bold rounded-xl text-lg transition-all hover:scale-105 inline-flex items-center gap-2 shadow-lg shadow-primary/20">

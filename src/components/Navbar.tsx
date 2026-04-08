@@ -100,11 +100,31 @@ function Wordmark() {
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const [onWarmBg, setOnWarmBg] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handler)
+    const handler = () => {
+      setScrolled(window.scrollY > 50)
+
+      // Detect which section background the navbar is over
+      const navY = 32 // middle of 64px nav
+      const sections = document.querySelectorAll('section')
+      let warm = false
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect()
+        if (rect.top <= navY && rect.bottom > navY) {
+          const bg = getComputedStyle(section).backgroundColor
+          // warm sections have bg-surface-warm (#F5F3F0) or similar warm tones
+          // Check if it's not pure white and not the default surface
+          if (section.classList.contains('bg-surface-warm')) {
+            warm = true
+          }
+        }
+      })
+      setOnWarmBg(warm)
+    }
+    window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
@@ -121,7 +141,11 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/90 backdrop-blur-md border-b border-border shadow-sm' : 'bg-transparent'
+        scrolled
+          ? onWarmBg
+            ? 'bg-[#F5F3F0]/90 backdrop-blur-md border-b border-[#E8E4DF] shadow-sm'
+            : 'bg-white/90 backdrop-blur-md border-b border-border shadow-sm'
+          : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -133,7 +157,7 @@ export default function Navbar() {
           {links.map(l => (
             <a key={l.href} href={l.href} className="text-sm text-text-muted hover:text-text transition-colors">{l.label}</a>
           ))}
-          <a href="#pricing" className="px-5 py-2 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg text-sm transition-colors">
+          <a href="#pricing" className="px-5 py-2 btn-gradient text-white font-semibold rounded-lg text-sm transition-colors">
             Start Free
           </a>
         </div>
