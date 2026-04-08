@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
 const logos = [
   { src: '/flowsprite-site/logos/Salesforce.com_logo.svg.png', alt: 'Salesforce',
@@ -17,44 +17,32 @@ const logos = [
 ]
 
 export default function Splash({ onComplete }: { onComplete: () => void }) {
-  const [phase, setPhase] = useState<'show' | 'swipe' | 'done'>('show')
-  const wrapperRef = useRef<HTMLDivElement>(null)
+  const [swiping, setSwiping] = useState(false)
+  const [done, setDone] = useState(false)
 
   useEffect(() => {
-    // Lock scroll and sit at top during splash
     window.scrollTo(0, 0)
-    document.body.style.overflow = 'hidden'
 
-    const t1 = setTimeout(() => {
-      setPhase('swipe')
-      // Scroll down to hero as splash translates up
-      // This makes the page "catch up" to where the hero is
-    }, 2200)
-
+    // Show logos for 2.2s, then swipe up
+    const t1 = setTimeout(() => setSwiping(true), 2200)
+    // Remove from DOM after swipe animation completes
     const t2 = setTimeout(() => {
-      document.body.style.overflow = ''
-      setPhase('done')
-      // Scroll to top so hero is in view after splash is removed from DOM
-      window.scrollTo(0, 0)
+      setDone(true)
       onComplete()
     }, 2900)
-
-    return () => {
-      clearTimeout(t1)
-      clearTimeout(t2)
-      document.body.style.overflow = ''
-    }
+    return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [onComplete])
 
-  if (phase === 'done') return null
+  if (done) return null
 
   return (
-    <motion.div
-      ref={wrapperRef}
-      className="relative w-full h-screen overflow-hidden"
-      style={{ backgroundColor: '#F5F0EB' }}
-      animate={phase === 'swipe' ? { marginTop: '-100vh' } : { marginTop: 0 }}
-      transition={phase === 'swipe' ? { duration: 0.7, ease: [0.4, 0, 0.2, 1] } : {}}
+    <div
+      className="fixed inset-0 z-[100] overflow-hidden"
+      style={{
+        backgroundColor: '#F5F0EB',
+        transform: swiping ? 'translateY(-100%)' : 'translateY(0)',
+        transition: swiping ? 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+      }}
     >
       {logos.map((logo, i) => (
         <motion.img
@@ -98,6 +86,6 @@ export default function Splash({ onComplete }: { onComplete: () => void }) {
           }}
         />
       ))}
-    </motion.div>
+    </div>
   )
 }
