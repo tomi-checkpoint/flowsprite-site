@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const logos = [
   { src: '/flowsprite-site/logos/Salesforce.com_logo.svg.png', alt: 'Salesforce',
@@ -18,28 +18,43 @@ const logos = [
 
 export default function Splash({ onComplete }: { onComplete: () => void }) {
   const [phase, setPhase] = useState<'show' | 'swipe' | 'done'>('show')
+  const wrapperRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Scroll to top on page load
+    // Lock scroll and sit at top during splash
     window.scrollTo(0, 0)
+    document.body.style.overflow = 'hidden'
 
-    // Logos float for 2.2s, then swipe up over 0.6s
-    const t1 = setTimeout(() => setPhase('swipe'), 2200)
+    const t1 = setTimeout(() => {
+      setPhase('swipe')
+      // Scroll down to hero as splash translates up
+      // This makes the page "catch up" to where the hero is
+    }, 2200)
+
     const t2 = setTimeout(() => {
+      document.body.style.overflow = ''
       setPhase('done')
+      // Scroll to top so hero is in view after splash is removed from DOM
+      window.scrollTo(0, 0)
       onComplete()
-    }, 2800)
-    return () => { clearTimeout(t1); clearTimeout(t2) }
+    }, 2900)
+
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+      document.body.style.overflow = ''
+    }
   }, [onComplete])
 
   if (phase === 'done') return null
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] overflow-hidden"
+      ref={wrapperRef}
+      className="relative w-full h-screen overflow-hidden"
       style={{ backgroundColor: '#F5F0EB' }}
-      animate={phase === 'swipe' ? { y: '-100%', opacity: 0 } : { y: 0, opacity: 1 }}
-      transition={phase === 'swipe' ? { y: { duration: 0.6, ease: [0.4, 0, 0.2, 1] }, opacity: { duration: 0.5, ease: 'easeOut' } } : {}}
+      animate={phase === 'swipe' ? { marginTop: '-100vh' } : { marginTop: 0 }}
+      transition={phase === 'swipe' ? { duration: 0.7, ease: [0.4, 0, 0.2, 1] } : {}}
     >
       {logos.map((logo, i) => (
         <motion.img
