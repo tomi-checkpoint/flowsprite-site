@@ -68,14 +68,14 @@ export default function Hero() {
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-sm text-primary mb-8"
         >
           <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-          Used by teams that manage Salesforce
+          For anyone who needs to change anything in Salesforce
         </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-4xl sm:text-5xl md:text-6xl font-black leading-[1.1] tracking-tight text-text mb-6"
+          className="text-4xl sm:text-5xl md:text-6xl font-black leading-[1.3] tracking-tight text-text mb-6"
         >
           Talk to your CRM.{' '}
           <br className="hidden sm:block" />

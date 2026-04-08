@@ -38,8 +38,8 @@ export default function Splash({ onComplete }: { onComplete: () => void }) {
     <motion.div
       className="fixed inset-0 z-[100] overflow-hidden"
       style={{ backgroundColor: '#F5F0EB' }}
-      animate={phase === 'swipe' ? { y: '-100%' } : { y: 0 }}
-      transition={phase === 'swipe' ? { duration: 0.6, ease: [0.4, 0, 0.2, 1] } : {}}
+      animate={phase === 'swipe' ? { y: '-100%', opacity: 0 } : { y: 0, opacity: 1 }}
+      transition={phase === 'swipe' ? { y: { duration: 0.6, ease: [0.4, 0, 0.2, 1] }, opacity: { duration: 0.5, ease: 'easeOut' } } : {}}
     >
       {logos.map((logo, i) => (
         <motion.img

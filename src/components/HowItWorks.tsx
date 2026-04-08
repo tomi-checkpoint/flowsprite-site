@@ -18,15 +18,15 @@ export default function HowItWorks() {
             How it works
           </h2>
         </motion.div>
-        <motion.div variants={staggerContainer} initial="hidden" animate={isInView ? 'visible' : 'hidden'} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <motion.div variants={staggerContainer} initial="hidden" animate={isInView ? 'visible' : 'hidden'} className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           {steps.map((step, i) => (
-            <motion.div key={i} variants={staggerItem} className={`relative p-8 rounded-2xl bg-white border ${step.border} ${step.hoverBorder} shadow-sm hover:shadow-md transition-all`}>
+            <motion.div key={i} variants={staggerItem} className={`relative p-8 rounded-2xl bg-white border ${step.border} ${step.hoverBorder} shadow-sm hover:shadow-md transition-all flex flex-col`}>
               <div className={`w-12 h-12 rounded-xl ${step.bg} flex items-center justify-center mb-6`}>
                 <step.icon size={24} className={step.color} />
               </div>
-              <div className={`text-xs font-mono ${step.color} mb-2 tracking-wider`}>{step.number}</div>
+              <div className={`text-2xl font-mono font-bold ${step.color} mb-2 tracking-wider`}>{step.number}</div>
               <h3 className="text-2xl font-bold text-text mb-3">{step.title}</h3>
-              <p className="text-text-muted leading-relaxed mb-3">{step.description}</p>
+              <p className="text-text-muted leading-relaxed mb-3 flex-1">{step.description}</p>
               <p className={`${step.color} font-semibold`}>{step.accent}</p>
             </motion.div>
           ))}

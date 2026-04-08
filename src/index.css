@@ -57,7 +57,7 @@ body {
   color: var(--color-text);
 }
 
-/* Animated gradient: cycles from light indigo → deep Salesforce blue */
+/* Animated gradient: left-to-right cycle, indigo → deep Salesforce blue */
 @keyframes gradient-shift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -65,18 +65,18 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #6366F1, #4F46E5, #1A5BBF, #134A9E, #1A5BBF, #4F46E5, #6366F1);
-  background-size: 300% 300%;
-  animation: gradient-shift 6s ease infinite;
+  background: linear-gradient(90deg, #4F46E5, #2E6FD4, #1A5BBF, #134A9E, #1A5BBF, #2E6FD4, #4F46E5);
+  background-size: 300% 100%;
+  animation: gradient-shift 10s ease infinite;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .highlight-box {
-  background: linear-gradient(135deg, #6366F1, #4F46E5, #1A5BBF, #134A9E, #1A5BBF, #4F46E5, #6366F1);
-  background-size: 300% 300%;
-  animation: gradient-shift 6s ease infinite;
+  background: linear-gradient(90deg, #4F46E5, #2E6FD4, #1A5BBF, #134A9E, #1A5BBF, #2E6FD4, #4F46E5);
+  background-size: 300% 100%;
+  animation: gradient-shift 10s ease infinite;
   color: white;
   padding: 0.1em 0.35em;
   border-radius: 0.3em;
@@ -84,9 +84,9 @@ body {
 }
 
 .btn-gradient {
-  background: linear-gradient(135deg, #6366F1, #4F46E5, #1A5BBF, #134A9E, #1A5BBF, #4F46E5, #6366F1);
-  background-size: 300% 300%;
-  animation: gradient-shift 6s ease infinite;
+  background: linear-gradient(90deg, #4F46E5, #2E6FD4, #1A5BBF, #134A9E, #1A5BBF, #2E6FD4, #4F46E5);
+  background-size: 300% 100%;
+  animation: gradient-shift 10s ease infinite;
 }
 
 @keyframes float {
