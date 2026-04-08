@@ -4,7 +4,7 @@ import { useScrollAnimation, staggerContainer, staggerItem, fadeUp, smoothTransi
 
 const steps = [
   { icon: MessageCircle, number: '01', title: 'Ask', description: 'You or your team describes what needs to change. A new field. A routing rule. A validation. Plain language, no jargon.', accent: 'Your words.', color: 'text-primary', bg: 'bg-primary/10', border: 'border-primary/15', hoverBorder: 'hover:border-primary/30' },
-  { icon: CheckCircle, number: '02', title: 'Approve', description: 'FlowSprite shows you exactly what will change and what it affects. Review it. Revise it. Approve when it looks right.', accent: 'Your call.', color: 'text-violet', bg: 'bg-violet/10', border: 'border-violet/15', hoverBorder: 'hover:border-violet/30' },
+  { icon: CheckCircle, number: '02', title: 'Approve', description: 'FlowSprite shows you exactly what will change and what it affects. Review it. Revise it. Approve when it looks right.', accent: 'Your call.', color: 'text-accent', bg: 'bg-accent/10', border: 'border-accent/15', hoverBorder: 'hover:border-accent/30' },
   { icon: Rocket, number: '03', title: 'Deploy', description: 'Approved changes land safely in your sandbox. Test them in a real environment. Push to production on your terms, on your timeline.', accent: 'Your pace.', color: 'text-amber-dark', bg: 'bg-amber/10', border: 'border-amber/15', hoverBorder: 'hover:border-amber/30' },
 ]
 

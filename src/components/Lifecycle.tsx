@@ -6,7 +6,7 @@ const stages = [
   { label: 'Dev Sandbox', mode: 'auto' },
   { label: 'QA Sandbox', mode: 'auto' },
   { label: 'UAT', mode: 'auto' },
-  { label: 'Staging', mode: 'auto' },
+  { label: 'Change Set', mode: 'auto' },
   { label: 'Production', mode: 'manual' },
 ]
 
@@ -23,7 +23,7 @@ export default function Lifecycle() {
             <motion.div key={i} variants={staggerItem} className="flex items-center gap-2 sm:gap-3">
               <div className={`px-4 sm:px-6 py-3 rounded-xl border ${stage.mode === 'manual' ? 'border-amber/30 bg-amber/5' : 'border-border bg-white'} text-center shadow-sm`}>
                 <div className="text-xs text-text-light mb-1 font-mono uppercase">
-                  {stage.mode === 'manual' ? <span className="text-amber-dark flex items-center justify-center gap-1"><Hand size={10} /> manual</span> : <span className="text-success">auto</span>}
+                  {stage.mode === 'manual' ? <span className="text-amber-dark flex items-center justify-center gap-1"><Hand size={10} /> you deploy</span> : <span className="text-success">auto</span>}
                 </div>
                 <div className={`text-sm font-semibold ${stage.mode === 'manual' ? 'text-amber-dark' : 'text-text'}`}>{stage.label}</div>
               </div>
@@ -33,11 +33,11 @@ export default function Lifecycle() {
         </motion.div>
         <motion.div variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'} transition={{ ...smoothTransition, delay: 0.4 }} className="max-w-2xl mx-auto text-center">
           <div className="inline-block px-6 py-4 rounded-xl bg-amber/5 border border-amber/15 mb-8">
-            <p className="text-amber-dark font-semibold text-sm">☝️ You push this button. Always you. Never us.</p>
+            <p className="text-amber-dark font-semibold text-sm">FlowSprite builds the change set. You hit deploy to production.</p>
           </div>
           <p className="text-text-muted leading-relaxed">
-            FlowSprite manages the path from your description to a tested, validated change ready for production.
-            The last step is always yours. <strong className="text-text">That's a line we will never cross.</strong>
+            FlowSprite manages the path from your description to a validated, packaged change set ready for production.
+            When it's time to go live, you push the button in Salesforce. <strong className="text-text">That's a line we will never cross.</strong>
           </p>
         </motion.div>
       </div>

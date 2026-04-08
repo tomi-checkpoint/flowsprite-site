@@ -26,8 +26,8 @@ export default function App() {
         <Hero />
         <Problem />
         <TheShift />
-        <ProductDemo />
         <HowItWorks />
+        <ProductDemo />
         <Safety />
         <Testimonials />
         <Features />

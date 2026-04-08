@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 
 const logos = [
-  // All clustered toward center, same visual height (200px), different from-directions
   { src: '/flowsprite-site/logos/Salesforce.com_logo.svg.png', alt: 'Salesforce',
     finalX: 28, finalY: 38, height: 200, delay: 0,
     fromX: -500, fromY: -350, fromRotate: -40 },
@@ -18,30 +17,29 @@ const logos = [
 ]
 
 export default function Splash({ onComplete }: { onComplete: () => void }) {
-  const [opacity, setOpacity] = useState(1)
-  const [done, setDone] = useState(false)
+  const [phase, setPhase] = useState<'show' | 'swipe' | 'done'>('show')
 
   useEffect(() => {
-    // Logos float for 2.2s, then fade out over 0.8s
-    const t1 = setTimeout(() => setOpacity(0), 2200)
+    // Scroll to top on page load
+    window.scrollTo(0, 0)
+
+    // Logos float for 2.2s, then swipe up over 0.6s
+    const t1 = setTimeout(() => setPhase('swipe'), 2200)
     const t2 = setTimeout(() => {
-      setDone(true)
+      setPhase('done')
       onComplete()
-    }, 3000)
+    }, 2800)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [onComplete])
 
-  if (done) return null
+  if (phase === 'done') return null
 
   return (
-    <div
+    <motion.div
       className="fixed inset-0 z-[100] overflow-hidden"
-      style={{
-        backgroundColor: '#F5F0EB',
-        opacity,
-        transition: 'opacity 0.8s ease',
-        pointerEvents: opacity === 0 ? 'none' : 'auto',
-      }}
+      style={{ backgroundColor: '#F5F0EB' }}
+      animate={phase === 'swipe' ? { y: '-100%' } : { y: 0 }}
+      transition={phase === 'swipe' ? { duration: 0.6, ease: [0.4, 0, 0.2, 1] } : {}}
     >
       {logos.map((logo, i) => (
         <motion.img
@@ -85,6 +83,6 @@ export default function Splash({ onComplete }: { onComplete: () => void }) {
           }}
         />
       ))}
-    </div>
+    </motion.div>
   )
 }

@@ -98,7 +98,7 @@ function BackspaceHeadline() {
 
 export default function FinalCTA() {
   return (
-    <section className="py-24 bg-gradient-to-br from-primary/5 via-surface-alt to-violet/5 relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-br from-primary/5 via-surface-alt to-accent/5 relative overflow-hidden">
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <BackspaceHeadline />
         <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.15 }}
@@ -106,7 +106,7 @@ export default function FinalCTA() {
           Talk to it. Change it. Own it.
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.3 }} className="flex flex-col items-center gap-4">
-          <a href="#pricing" className="group px-10 py-4 bg-primary hover:bg-primary-dark text-white font-bold rounded-xl text-lg transition-all hover:scale-105 inline-flex items-center gap-2 shadow-lg shadow-primary/20">
+          <a href="#pricing" className="group px-10 py-4 btn-gradient text-white font-bold rounded-xl text-lg transition-all hover:scale-105 inline-flex items-center gap-2 shadow-lg shadow-primary/20">
             Start Free — No Credit Card Required <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </a>
           <p className="text-sm text-text-light">Setup takes 2 minutes. Your first change ships today.</p>

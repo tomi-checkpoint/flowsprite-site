@@ -4,7 +4,7 @@ import { useScrollAnimation, staggerContainer, staggerItem, fadeUp, smoothTransi
 
 const points = [
   { icon: Shield, title: 'Sandbox first, always.', description: 'FlowSprite works with your sandbox. Production deploys are manual, deliberate, and always your decision.', color: 'text-primary', bg: 'bg-primary/10' },
-  { icon: Database, title: 'You own your data.', description: 'Everything lives in your private repository. Cancel anytime. Your history stays.', color: 'text-violet', bg: 'bg-violet/10' },
+  { icon: Database, title: 'You own your data.', description: 'Everything lives in your private repository. Cancel anytime. Your history stays.', color: 'text-accent', bg: 'bg-accent/10' },
   { icon: ClipboardList, title: 'Full audit trail.', description: 'Every change logged. Every action tracked. Every user accountable. Export anytime.', color: 'text-success', bg: 'bg-success/10' },
 ]
 

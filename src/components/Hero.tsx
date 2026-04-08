@@ -45,7 +45,7 @@ export default function Hero() {
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16">
       {/* Light gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-surface via-surface-alt to-surface" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(124,58,237,0.06),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(26,91,191,0.06),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(79,70,229,0.04),transparent_50%)]" />
 
       {/* Subtle grid */}
@@ -68,14 +68,14 @@ export default function Hero() {
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-sm text-primary mb-8"
         >
           <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-          Used by teams managing 4+ Salesforce orgs
+          Used by teams that manage Salesforce
         </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-5xl sm:text-6xl md:text-7xl font-black leading-[1.1] tracking-tight text-text mb-6"
+          className="text-4xl sm:text-5xl md:text-6xl font-black leading-[1.1] tracking-tight text-text mb-6"
         >
           Talk to your CRM.{' '}
           <br className="hidden sm:block" />
@@ -100,7 +100,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6"
         >
-          <a href="#pricing" className="group px-8 py-3.5 bg-primary hover:bg-primary-dark text-white font-bold rounded-xl text-lg transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-primary/20">
+          <a href="#pricing" className="group px-8 py-3.5 btn-gradient text-white font-bold rounded-xl text-lg transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-primary/20">
             Start Free
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </a>

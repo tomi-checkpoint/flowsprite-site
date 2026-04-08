@@ -23,8 +23,9 @@
   --color-secondary: #10B981;
   --color-secondary-light: #34D399;
   --color-secondary-dark: #059669;
-  --color-violet: #7C3AED;
-  --color-violet-light: #8B5CF6;
+  --color-accent: #1A5BBF;
+  --color-accent-light: #2E6FD4;
+  --color-accent-dark: #134A9E;
   --color-amber: #F59E0B;
   --color-amber-dark: #D97706;
   --color-info: #3B82F6;
@@ -56,19 +57,36 @@ body {
   color: var(--color-text);
 }
 
+/* Animated gradient: cycles from light indigo → deep Salesforce blue */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .gradient-text {
-  background: linear-gradient(135deg, #4F46E5, #7C3AED, #EC4899);
+  background: linear-gradient(135deg, #6366F1, #4F46E5, #1A5BBF, #134A9E, #1A5BBF, #4F46E5, #6366F1);
+  background-size: 300% 300%;
+  animation: gradient-shift 6s ease infinite;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .highlight-box {
-  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+  background: linear-gradient(135deg, #6366F1, #4F46E5, #1A5BBF, #134A9E, #1A5BBF, #4F46E5, #6366F1);
+  background-size: 300% 300%;
+  animation: gradient-shift 6s ease infinite;
   color: white;
   padding: 0.1em 0.35em;
   border-radius: 0.3em;
   display: inline-block;
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, #6366F1, #4F46E5, #1A5BBF, #134A9E, #1A5BBF, #4F46E5, #6366F1);
+  background-size: 300% 300%;
+  animation: gradient-shift 6s ease infinite;
 }
 
 @keyframes float {

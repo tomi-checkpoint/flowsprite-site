@@ -171,11 +171,7 @@ export default function ProductDemo() {
                   {stage}
                 </motion.div>
                 {i < stages.length - 1 && (
-                  <motion.div
-                    animate={{ backgroundColor: i < activeStage ? '#059669' : '#E2E8F0' }}
-                    transition={{ duration: 0.4 }}
-                    className="w-4 h-[1.5px] shrink-0"
-                  />
+                  <span className="text-text-light text-[10px] mx-0.5">·</span>
                 )}
               </div>
             ))}
@@ -271,7 +267,7 @@ export default function ProductDemo() {
                       <span className="text-[#57606A] font-normal"> #35</span>
                     </h3>
                     <div className="flex items-center gap-2 mb-4">
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#8250DF] text-white font-medium">Merged</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#1A5BBF] text-white font-medium">Merged</span>
                       <span className="text-[10px] text-[#57606A]">2 commits into <CodeBadge>main</CodeBadge> from <CodeBadge>feature/upsell-delta-calculation</CodeBadge></span>
                     </div>
                     <div className="flex items-center gap-3 text-[10px] text-[#57606A] mb-4 border-b border-border-light pb-3">
@@ -364,7 +360,7 @@ export default function ProductDemo() {
 
             {/* PR sidebar hint */}
             <div className="border-t border-border-light px-4 py-2 bg-[#F6F8FA] flex items-center gap-3 text-[9px] text-[#57606A] shrink-0">
-              <span>Labels: <span className="px-1.5 py-0.5 rounded-full bg-[#E4E0F0] text-[#6E5494] font-medium">mixed</span> <span className="px-1.5 py-0.5 rounded-full bg-amber/15 text-amber-dark font-medium">risk-tier-2</span></span>
+              <span>Labels: <span className="px-1.5 py-0.5 rounded-full bg-[#DBEAFE] text-[#1A5BBF] font-medium">mixed</span> <span className="px-1.5 py-0.5 rounded-full bg-amber/15 text-amber-dark font-medium">risk-tier-2</span></span>
             </div>
           </div>
         </div>

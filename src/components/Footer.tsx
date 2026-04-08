@@ -10,11 +10,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           <div className="col-span-2 md:col-span-1">
-            <a href="#" className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary via-violet to-primary-light flex items-center justify-center">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 3a9 9 0 100 18 9 9 0 000-18z"/></svg>
-              </div>
-              <span className="text-lg font-bold text-text">Flow<span className="text-violet">Sprite</span></span>
+            <a href="#" className="inline-block mb-4" style={{ fontFamily: "'Bitcount', monospace", fontSize: 24, color: '#1E293B', textDecoration: 'none' }}>
+              FlowSprite
             </a>
             <p className="text-sm text-text-light leading-relaxed">Salesforce changes in plain English.</p>
           </div>
