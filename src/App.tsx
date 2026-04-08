@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useCallback } from 'react'
 import Splash from './components/Splash'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -15,8 +15,7 @@ import FinalCTA from './components/FinalCTA'
 import Footer from './components/Footer'
 
 export default function App() {
-  const [splashDone, setSplashDone] = useState(false)
-  const handleSplashComplete = useCallback(() => setSplashDone(true), [])
+  const handleSplashComplete = useCallback(() => {}, [])
 
   return (
     <div className="min-h-screen bg-surface">
