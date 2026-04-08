@@ -21,7 +21,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-surface">
       <Splash onComplete={handleSplashComplete} />
-      <div style={{ opacity: splashDone ? 1 : 0, transition: 'opacity 0.6s ease' }}>
+      <div>
         <Navbar />
         <Hero />
         <Problem />
