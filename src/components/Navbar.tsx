@@ -114,9 +114,6 @@ export default function Navbar() {
       sections.forEach(section => {
         const rect = section.getBoundingClientRect()
         if (rect.top <= navY && rect.bottom > navY) {
-          const bg = getComputedStyle(section).backgroundColor
-          // warm sections have bg-surface-warm (#F5F3F0) or similar warm tones
-          // Check if it's not pure white and not the default surface
           if (section.classList.contains('bg-surface-warm')) {
             warm = true
           }
