@@ -3,12 +3,12 @@ import { motion } from 'framer-motion'
 import { Layers, FileText, GitCompare, RadioTower, ShieldAlert, ClipboardList } from 'lucide-react'
 
 const cards = [
-  { icon: Layers, title: 'Full Org Coverage', desc: 'Objects, fields, flows, permissions, layouts, and 30+ more. FlowSprite understands your entire Salesforce architecture.', color: '#4F46E5', bg: '#EEF2FF', rotate: -4 },
-  { icon: FileText, title: 'Plain English Previews', desc: 'Every change described in language anyone can read. No XML. No code diffs.', color: '#1A5BBF', bg: '#DBEAFE', rotate: 3.5 },
-  { icon: GitCompare, title: 'Cross-Org Compare', desc: 'Side-by-side view of any two environments. See exactly what\'s different.', color: '#D97706', bg: '#FFFBEB', rotate: -2.5 },
-  { icon: RadioTower, title: 'Drift Detection', desc: 'Know instantly when someone makes an untracked change. No surprises.', color: '#059669', bg: '#ECFDF5', rotate: 4 },
-  { icon: ShieldAlert, title: 'Policy Guardrails', desc: 'Built-in rules that block dangerous changes before they happen.', color: '#EF4444', bg: '#FEF2F2', rotate: -3 },
-  { icon: ClipboardList, title: 'Audit Trail', desc: 'Every action logged. Every user accountable. Export for compliance.', color: '#3B82F6', bg: '#EFF6FF', rotate: 2.5 },
+  { icon: Layers, title: 'Full Org Coverage', desc: 'Objects, fields, flows, permissions, layouts, and 30+ more. FlowSprite understands your entire Salesforce architecture.', color: '#4F46E5', bg: '#EEF2FF' },
+  { icon: FileText, title: 'Plain English Previews', desc: 'Every change described in language anyone can read. No XML. No code diffs.', color: '#1A5BBF', bg: '#DBEAFE' },
+  { icon: GitCompare, title: 'Cross-Org Compare', desc: 'Side-by-side view of any two environments. See exactly what\'s different.', color: '#D97706', bg: '#FFFBEB' },
+  { icon: RadioTower, title: 'Drift Detection', desc: 'Know instantly when someone makes an untracked change. No surprises.', color: '#059669', bg: '#ECFDF5' },
+  { icon: ShieldAlert, title: 'Policy Guardrails', desc: 'Built-in rules that block dangerous changes before they happen.', color: '#EF4444', bg: '#FEF2F2' },
+  { icon: ClipboardList, title: 'Audit Trail', desc: 'Every action logged. Every user accountable. Export for compliance.', color: '#3B82F6', bg: '#EFF6FF' },
 ]
 
 export default function Features() {
@@ -52,43 +52,36 @@ export default function Features() {
           initial={{ opacity: 0, y: 30 }}
           animate={visible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-12 px-6"
+          className="text-center mb-8 px-6"
         >
           <h2 className="text-4xl sm:text-5xl font-black text-text mb-4">
             Everything under the hood.
           </h2>
         </motion.div>
 
-        {/* Card stack */}
-        <div className="relative w-[300px] sm:w-[340px] h-[300px] sm:h-[340px]">
+        {/* Responsive grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full max-w-4xl px-6">
           {cards.map((card, i) => {
             const Icon = card.icon
             const revealAt = i * cardStep
             const cardProgress = Math.max(0, Math.min(1, (progress - revealAt) / cardStep))
             const isRevealed = cardProgress > 0
 
-            const landedCards = Math.floor(progress / cardStep)
-            const stackPosition = isRevealed ? Math.max(0, landedCards - i - 1) : 0
-            const stackY = stackPosition * -8
-
             const slideY = cardProgress < 1 ? (1 - cardProgress) * 250 : 0
 
             return (
               <motion.div
                 key={i}
-                className="absolute inset-0 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center"
+                className="rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center min-h-[200px]"
                 style={{
                   backgroundColor: card.bg,
                   border: `2px solid ${card.color}30`,
                   boxShadow: `0 8px 30px ${card.color}15, 0 2px 8px rgba(0,0,0,0.06)`,
-                  zIndex: isRevealed ? i + 1 : 0,
                   pointerEvents: isRevealed ? 'auto' : 'none',
                 }}
                 animate={{
                   opacity: isRevealed ? 1 : 0,
-                  y: slideY + stackY,
-                  rotate: isRevealed ? card.rotate : 0,
-                  scale: isRevealed ? 1 - stackPosition * 0.02 : 0.9,
+                  y: isRevealed ? slideY : 250,
                 }}
                 transition={{
                   type: 'spring',
